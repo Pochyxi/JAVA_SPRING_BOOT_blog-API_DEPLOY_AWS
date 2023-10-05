@@ -14,6 +14,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Optional;
+
 @SpringBootApplication
 @OpenAPIDefinition(
 		info = @Info(
@@ -56,12 +58,22 @@ public class SpringBootBlogApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run( String... args ) throws Exception {
-		Role adminRole = new Role();
-		adminRole.setName( "ROLE_ADMIN" );
-		roleRepository.save( adminRole );
+		Optional<Role> userRole = roleRepository.findByName( "ROLE_USER" );
+		Optional<Role> userAdmin = roleRepository.findByName( "ROLE_ADMIN" );
 
-		Role userRole = new Role();
-		userRole.setName( "ROLE_USER" );
-		roleRepository.save( userRole );
+		if ( userRole.isEmpty() || userAdmin.isEmpty() ) {
+			Role adminRole = new Role();
+			adminRole.setName( "ROLE_ADMIN" );
+			roleRepository.save( adminRole );
+
+			Role newUserRole = new Role();
+			newUserRole.setName( "ROLE_USER" );
+			roleRepository.save( newUserRole );
+
+			System.out.println( "RUOLI CREATI CON SUCCESSO" );
+		} else {
+			System.out.println( "RUOLI GIA' ESISTENTI: NON ESEGUO" );
+		}
+
 	}
 }
