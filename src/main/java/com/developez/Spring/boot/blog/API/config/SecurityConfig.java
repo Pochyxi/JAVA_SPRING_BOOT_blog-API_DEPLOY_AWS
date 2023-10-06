@@ -82,7 +82,13 @@ public class SecurityConfig {
                             CorsConfiguration corsConfiguration = new CorsConfiguration();
                             // Consente le richieste da "http://localhost:4200" e per sicurezza aggiungiamo anche
                             // "http://127.0.0.1:4200" che è l'indirizzo IP di localhost Angular
-                            corsConfiguration.setAllowedOrigins( List.of( "http://127.0.0.1:4200/", "http://localhost:4200/" ) );
+                            corsConfiguration.setAllowedOrigins(
+                                    List.of(
+                                            "http://127.0.0.1:4200/",
+                                            "http://localhost:4200/",
+                                            "https://developezapiblog.com/",
+                                            "http://developezapiblog.com/"
+                                    ) );
                             // Consente tutti i metodi HTTP
                             corsConfiguration.setAllowedMethods( List.of( "GET", "POST", "PUT", "DELETE", "HEAD",
                                     "OPTIONS" ) );
@@ -104,11 +110,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests( ( authorize ) ->
                         authorize.requestMatchers( HttpMethod.GET, "/api/**" ).permitAll()
 //                            .requestMatchers( HttpMethod.GET, "/api/categories/**").permitAll()
-                        .requestMatchers( "/api/auth/**" ).permitAll()
-                        // Accesso pubblico a Swagger
-                        .requestMatchers( "/swagger-ui/**" ).permitAll()
-                        .requestMatchers( "/v3/api-docs/**" ).permitAll()
-                        .anyRequest().authenticated() ).exceptionHandling( exception -> exception
+                                .requestMatchers( "/api/auth/**" ).permitAll()
+                                .requestMatchers( "/" ).permitAll()
+                                // Accesso pubblico a Swagger
+                                .requestMatchers( "/swagger-ui/**" ).permitAll()
+                                .requestMatchers( "/v3/api-docs/**" ).permitAll()
+                                .anyRequest().authenticated() ).exceptionHandling( exception -> exception
                         .authenticationEntryPoint( jwtAuthenticationEntryPoint )
                 ).sessionManagement( session -> session
                         .sessionCreationPolicy( SessionCreationPolicy.STATELESS )
