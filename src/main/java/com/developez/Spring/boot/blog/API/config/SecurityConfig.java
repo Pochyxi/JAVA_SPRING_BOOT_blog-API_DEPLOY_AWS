@@ -87,7 +87,8 @@ public class SecurityConfig {
                                             "http://127.0.0.1:4200/",
                                             "http://localhost:4200/",
                                             "https://developezapiblog.com/",
-                                            "http://developezapiblog.com/"
+                                            "http://developezapiblog.com/",
+                                            "https://developezapp.com/"
                                     ) );
                             // Consente tutti i metodi HTTP
                             corsConfiguration.setAllowedMethods( List.of( "GET", "POST", "PUT", "DELETE", "HEAD",

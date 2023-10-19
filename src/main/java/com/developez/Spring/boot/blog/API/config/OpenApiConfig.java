@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenApiConfig {
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                // Aggiungi il tuo server HTTPS qui
-                .addServersItem(new Server().url("https://developezapiblog.com"))
-                .addServersItem(new Server().url("http://developezapiblog.com"));
-    }
+    //todo: da scoprire se anche su https si può commentare (probabilmente si)
+//    @Bean
+//    public OpenAPI customOpenAPI() {
+//        return new OpenAPI()
+//                // Aggiungi il tuo server HTTPS qui
+////                .addServersItem(new Server().url("https://developezapiblog.com"))
+////                .addServersItem(new Server().url("http://developezapiblog.com"))
+////                .addServersItem( new Server().url( "http://localhost:8080" ) );
+//    }
 }

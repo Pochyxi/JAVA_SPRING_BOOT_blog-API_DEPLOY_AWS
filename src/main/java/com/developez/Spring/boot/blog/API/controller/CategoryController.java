@@ -66,11 +66,13 @@ public class CategoryController {
             description = "Categoria recuperata con successo"
     )
     @GetMapping("/{categoryId}")
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<CategoryDto> getCategory(@PathVariable("categoryId") Long categoryId ) {
         CategoryDto response = categoryService.getCategory( categoryId );
 
         return new ResponseEntity<>( response, HttpStatus.OK );
     }
+
 
     // Costruzione della getAllCategories REST API
     @Operation(
